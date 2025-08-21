@@ -1,59 +1,105 @@
 @model IEnumerable<aplicacao_asp.net_mvc.Models.Tarefa>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Tarefas";
 }
 
-<h1>Index</h1>
+<!-- Estilo retrô rosa/bege -->
+<style>
+    body {
+        background: linear-gradient(135deg, #FDE2E2, #FFF3E2);
+        font-family: 'Courier New', Courier, monospace;
+        color:
+    }
+
+    h1 {
+        text-align: center;
+        margin-bottom: 30px;
+        color: #B84C70;
+    }
+
+    .table {
+        background-color: rgba(255, 240, 230, 0.9);
+        border-radius: 10px;
+        padding: 15px;
+        box-shadow: 3px 3px 8px rgba(0,0,0,0.1);
+    }
+
+    .table th {
+        background-color: #F7C8D0;
+        color: #4A1C40;
+    }
+
+    .table td {
+        background-color: #FFE9D6;
+    }
+
+    a {
+        text-decoration: none;
+        color: #B84C70;
+    }
+
+    a:hover {
+        color: #83304B;
+    }
+
+    .btn-create {
+        display: inline-block;
+        margin-bottom: 20px;
+        padding: 8px 15px;
+        background-color: #F7C8D0;
+        color: #4A1C40;
+        border-radius: 5px;
+        text-decoration: none;
+        font-weight: bold;
+    }
+
+    .btn-create:hover {
+        background-color: #B84C70;
+        color: white;
+    }
+</style>
+
+<h1></h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a class="btn-create" asp-action="Create">+ Nova Tarefa</a>
 </p>
-<table class="table">
+
+<table class="table table-striped">
     <thead>
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Nome)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Descricao)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DataCriacao)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DataConclusao)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Tipo)
-            </th>
+            <th>@Html.DisplayNameFor(model => model.Nome)</th>
+            <th>@Html.DisplayNameFor(model => model.Descricao)</th>
+            <th>@Html.DisplayNameFor(model => model.DataCriacao)</th>
+            <th>@Html.DisplayNameFor(model => model.DataConclusao)</th>
+            <th>@Html.DisplayNameFor(model => model.Tipo.Descricao)</th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Nome)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Descricao)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DataCriacao)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DataConclusao)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Tipo.Descricao)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model) {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.Nome)</td>
+                <td>@Html.DisplayFor(modelItem => item.Descricao)</td>
+                <td>@Html.DisplayFor(modelItem => item.DataCriacao)</td>
+                <td>@Html.DisplayFor(modelItem => item.DataConclusao)</td>
+                <td>@Html.DisplayFor(modelItem => item.Tipo.Descricao)</td>
+                <td>
+    <a asp-action="Edit" asp-route-id="@item.Id" title="Editar">
+        <i class="bi bi-pencil-square"></i>
+    </a>
+    |
+    <a asp-action="Details" asp-route-id="@item.Id" title="Detalhes">
+        <i class="bi bi-eye"></i>
+    </a>
+    |
+    <a asp-action="Delete" asp-route-id="@item.Id" title="Excluir">
+        <i class="bi bi-trash"></i>
+    </a>
+</td>
+
+            </tr>
+        }
     </tbody>
 </table>
