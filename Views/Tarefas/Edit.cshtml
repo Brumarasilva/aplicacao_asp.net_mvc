@@ -57,6 +57,26 @@
         color: #83304B;
         text-decoration: underline;
     }
+
+    /* Estrela para favoritar */
+    .star-icon {
+        font-size: 24px;
+        color: #B84C70;
+        cursor: pointer;
+        user-select: none;
+        margin-right: 8px;
+        vertical-align: middle;
+        transition: color 0.3s ease;
+    }
+    .star-icon.active {
+        color: #83304B;
+    }
+
+    /* Ajuste para label e input Nome com estrela */
+    .star-label-wrapper {
+        display: flex;
+        align-items: center;
+    }
 </style>
 
 <h1>Edit</h1>
@@ -69,13 +89,17 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
 
-            <div class="form-group">
-                <label asp-for="Nome" class="control-label"></label>
-                <input asp-for="Nome" class="form-control" />
-                <span asp-validation-for="Nome" class="text-danger"></span>
+            <!-- Campo Importante com estrela -->
+            <div class="form-group star-label-wrapper">
+                <span id="starIcon" class="star-icon">@(Model.Importante ? "★" : "☆")</span>
+                <label asp-for="Nome" class="control-label" style="margin-bottom:0;"></label>
             </div>
+            <input type="checkbox" asp-for="Importante" id="Importante" hidden />
+            <input asp-for="Nome" class="form-control" />
 
-            <div class="form-group">
+            <span asp-validation-for="Nome" class="text-danger"></span>
+
+            <div class="form-group mt-3">
                 <label asp-for="Descricao" class="control-label"></label>
                 <input asp-for="Descricao" class="form-control" />
                 <span asp-validation-for="Descricao" class="text-danger"></span>
@@ -112,4 +136,25 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script>
+        const starIcon = document.getElementById("starIcon");
+        const importanteCheckbox = document.getElementById("Importante");
+
+        starIcon.addEventListener("click", function () {
+            starIcon.classList.toggle("active");
+            importanteCheckbox.checked = !importanteCheckbox.checked;
+            starIcon.textContent = importanteCheckbox.checked ? "★" : "☆";
+        });
+
+        window.onload = function () {
+            if (importanteCheckbox.checked) {
+                starIcon.classList.add("active");
+                starIcon.textContent = "★";
+            } else {
+                starIcon.classList.remove("active");
+                starIcon.textContent = "☆";
+            }
+        };
+    </script>
 }

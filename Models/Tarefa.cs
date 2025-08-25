@@ -31,9 +31,11 @@ namespace aplicacao_asp.net_mvc.Models
         public int TipoId { get; set; }
         public Tipo? Tipo { get; set; }
 
-        // ✅ Novo campo para checkbox
         [Display(Name = "Concluída")]
         public bool Concluida { get; set; } = false;
 
+        // Propriedade para favoritar a tarefa
+        [Display(Name = "Importante")]
+        public bool Importante { get; set; } = false;
     }
 }
