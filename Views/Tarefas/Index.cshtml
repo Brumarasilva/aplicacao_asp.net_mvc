@@ -9,7 +9,6 @@
     body {
         background: linear-gradient(135deg, #FDE2E2, #FFF3E2);
         font-family: 'Courier New', Courier, monospace;
-        color:
     }
 
     h1 {
@@ -32,6 +31,7 @@
 
     .table td {
         background-color: #FFE9D6;
+        vertical-align: middle;
     }
 
     a {
@@ -58,9 +58,74 @@
         background-color: #B84C70;
         color: white;
     }
+
+    .done {
+        text-decoration: line-through;
+        color: gray;
+    }
+
+    /* Estilo do checkbox redondo customizado */
+    .custom-checkbox {
+        position: relative;
+        display: inline-block;
+        width: 22px;
+        height: 22px;
+        cursor: pointer;
+    }
+
+    /* Esconde o checkbox original */
+    .custom-checkbox input[type="checkbox"] {
+        opacity: 0;
+        width: 22px;
+        height: 22px;
+        margin: 0;
+        position: absolute;
+        cursor: pointer;
+        z-index: 2;
+    }
+
+    /* Estilo do círculo */
+    .checkmark {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 22px;
+        width: 22px;
+        background-color: transparent;
+        border: 2px solid #6e6e6e;
+        border-radius: 50%;
+        box-sizing: border-box;
+        transition: background-color 0.3s, border-color 0.3s;
+        z-index: 1;
+    }
+
+    /* Quando o checkbox estiver marcado */
+    .custom-checkbox input[type="checkbox"]:checked + .checkmark {
+        background-color: #B84C70;
+        border-color: #B84C70;
+    }
+
+    /* O "check" interno, um círculo branco menor */
+    .custom-checkbox input[type="checkbox"]:checked + .checkmark::after {
+        content: "";
+        position: absolute;
+        top: 5px;
+        left: 5px;
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: white;
+    }
+
+    /* Label descrição ao lado */
+    .descricao-label {
+        margin-left: 8px;
+        cursor: pointer;
+    }
+
 </style>
 
-<h1></h1>
+<h1>Tarefas</h1>
 
 <p>
     <a class="btn-create" asp-action="Create">+ Nova Tarefa</a>
@@ -69,8 +134,8 @@
 <table class="table table-striped">
     <thead>
         <tr>
+            <th>Checklist</th>
             <th>@Html.DisplayNameFor(model => model.Nome)</th>
-            <th>@Html.DisplayNameFor(model => model.Descricao)</th>
             <th>@Html.DisplayNameFor(model => model.DataCriacao)</th>
             <th>@Html.DisplayNameFor(model => model.DataConclusao)</th>
             <th>@Html.DisplayNameFor(model => model.Tipo.Descricao)</th>
@@ -80,25 +145,30 @@
     <tbody>
         @foreach (var item in Model) {
             <tr>
-                <td>@Html.DisplayFor(modelItem => item.Nome)</td>
-                <td>@Html.DisplayFor(modelItem => item.Descricao)</td>
+                <td>
+                    <label class="custom-checkbox">
+                        <input type="checkbox"
+                               class="check-concluida"
+                               data-id="@item.Id"
+                               @(item.Concluida ? "checked" : "") />
+                        <span class="checkmark"></span>
+                    </label>
+                </td>
+
+                <td>
+                    <label class="descricao-label @(item.Concluida ? "done" : "")" for="">
+                        @item.Descricao
+                    </label>
+                </td>
+
                 <td>@Html.DisplayFor(modelItem => item.DataCriacao)</td>
                 <td>@Html.DisplayFor(modelItem => item.DataConclusao)</td>
                 <td>@Html.DisplayFor(modelItem => item.Tipo.Descricao)</td>
                 <td>
-    <a asp-action="Edit" asp-route-id="@item.Id" title="Editar">
-        <i class="bi bi-pencil-square"></i>
-    </a>
-    |
-    <a asp-action="Details" asp-route-id="@item.Id" title="Detalhes">
-        <i class="bi bi-eye"></i>
-    </a>
-    |
-    <a asp-action="Delete" asp-route-id="@item.Id" title="Excluir">
-        <i class="bi bi-trash"></i>
-    </a>
-</td>
-
+                    <a asp-action="Edit" asp-route-id="@item.Id" title="Editar"><i class="bi bi-pencil-square"></i></a> |
+                    <a asp-action="Details" asp-route-id="@item.Id" title="Detalhes"><i class="bi bi-eye"></i></a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id" title="Excluir"><i class="bi bi-trash"></i></a>
+                </td>
             </tr>
         }
     </tbody>

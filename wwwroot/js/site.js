@@ -1,4 +1,18 @@
-﻿// Please see documentation at https://learn.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
+﻿var token = $('meta[name="csrf-token"]').attr('content');
 
-// Write your JavaScript code.
+$.ajax({
+    url: '/Tarefas/MarcarConcluida',
+    type: 'POST',
+    contentType: 'application/json',
+    headers: {
+        'RequestVerificationToken': token
+    },
+    data: JSON.stringify({ id: tarefaId, concluida: true }),
+    success: function () {
+        alert('Tarefa marcada com sucesso!');
+    },
+    error: function () {
+        alert('Erro ao marcar a tarefa.');
+    }
+});
+

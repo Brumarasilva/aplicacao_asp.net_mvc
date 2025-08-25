@@ -27,9 +27,13 @@ namespace aplicacao_asp.net_mvc.Models
         [Display(Name = "Data de Conclusão")]
         public DateTime? DataConclusao { get; set; }
 
-        // Relacionamento opcional com Tipo
         [Display(Name = "Tipo")]
         public int TipoId { get; set; }
         public Tipo? Tipo { get; set; }
+
+        // ✅ Novo campo para checkbox
+        [Display(Name = "Concluída")]
+        public bool Concluida { get; set; } = false;
+
     }
 }
