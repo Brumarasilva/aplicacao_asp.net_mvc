@@ -4,27 +4,83 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
+<!-- Estilo retrô rosa/bege -->
+<style>
+    body {
+        background: linear-gradient(135deg, #FDE2E2, #FFF3E2);
+        font-family: 'Courier New', Courier, monospace;
+        color: #4A1C40;
+    }
+
+    h1, h4 {
+        color: #B84C70;
+        text-align: center;
+    }
+
+    hr {
+        border-top: 2px solid #F7C8D0;
+        max-width: 600px;
+        margin: 10px auto 20px auto;
+    }
+
+    dl.row {
+        max-width: 600px;
+        margin: 0 auto;
+    }
+
+    dt.col-sm-2 {
+        font-weight: bold;
+        color: #4A1C40;
+        text-align: right;
+        padding-right: 15px;
+    }
+
+    dd.col-sm-10 {
+        padding-left: 15px;
+        margin-bottom: 10px;
+        word-wrap: break-word;
+    }
+
+    a {
+        color: #B84C70;
+        text-decoration: none;
+        font-weight: bold;
+        margin: 0 8px;
+    }
+
+    a:hover {
+        color: #83304B;
+        text-decoration: underline;
+    }
+
+    .text-center {
+        text-align: center;
+        margin-top: 20px;
+    }
+</style>
+
+<h1></h1>
 
 <div>
-    <h4>Tipo</h4>
+    <h4></h4>
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Nome)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Nome)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Descricao)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Descricao)
         </dd>
     </dl>
 </div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+
+<div class="text-center">
+    <a asp-action="Edit" asp-route-id="@Model?.Id">Editar</a> |
+    <a asp-action="Index">Voltar para a lista</a>
 </div>
